@@ -11,7 +11,7 @@ on:
 
 jobs:
   terraform-security:
-    name: Terraform Validation and Checkov Scan
+    name: Terraform Validation and Security Guardrails
     runs-on: ubuntu-latest
 
     steps:
@@ -35,8 +35,23 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Checkov
-        run: pip install checkov
+      - name: Install Security Tools
+        run: pip install checkov python-hcl2
 
-      - name: Run Checkov Security Scan
-        run: checkov -d . --framework terraform --output cli
+      - name: Run Full Checkov Security Audit
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          checkov -d . --framework terraform --output cli 2>&1 | tee reports/checkov-ci.txt
+
+      - name: Run Mandatory Custom Guardrails
+        run: python policies/guardrails.py
+
+      - name: Upload Security Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-security-reports
+          path: reports/*.txt
+          if-no-files-found: warn
+

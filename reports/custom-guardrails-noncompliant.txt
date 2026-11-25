@@ -1,0 +1,9 @@
+Starting custom Terraform security guardrails...
+
+FAIL: S3 bucket 'insecure' has no valid explicit encryption.
+FAIL: Security group 'insecure' allows public SSH.
+
+--------------------------------
+Total guardrail failures: 2
+--------------------------------
+Security guardrails FAILED!

@@ -1,0 +1,10 @@
+Starting custom Terraform security guardrails...
+
+PASS: S3 bucket 'assets' has encryption.
+PASS: Security group 'app' does not allow public SSH.
+PASS: Security group 'alb' does not allow public SSH.
+
+--------------------------------
+Total guardrail failures: 0
+--------------------------------
+All custom security guardrails passed!
