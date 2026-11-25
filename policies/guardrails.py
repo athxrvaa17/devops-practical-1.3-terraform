@@ -121,6 +121,9 @@ buckets, encryption_configs, security_groups = scan_resources(ROOT_DIR)
 
 failures = 0
 
+print("\nDEBUG: Parsed S3 bucket data:", buckets)
+print("DEBUG: Parsed encryption data:", encryption_configs)
+
 # Guardrail 1: Every S3 bucket must have explicit encryption
 for bucket in buckets:
     matching_config = any(
