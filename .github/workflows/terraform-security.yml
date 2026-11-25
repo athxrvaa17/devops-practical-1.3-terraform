@@ -36,7 +36,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Security Tools
-        run: pip install checkov python-hcl2
+        run: pip install checkov "python-hcl2==8.2.0"
 
       - name: Run Full Checkov Security Audit
         continue-on-error: true
